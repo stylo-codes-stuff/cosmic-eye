@@ -1,11 +1,14 @@
 //variable for keeping track of the total amount of actions locations and harvestables
 var things = 2;
 //resources variables
+var equipment = {head:null,chest:null,legs:null}
+var items = []
 var stone = 0;
 var acorns = 0;
 var iron = 0;
 var wood = 0;
 var shells = 0
+//resource multipliers
 //update the debugging display for the amount of things currently generated
 function update_things_count() {
     var count = document.getElementById("things_count");
@@ -124,7 +127,7 @@ function generateThings(item) {
     }
 
     switch (name) {
-        //generates up to 6 iron vein harvestables
+        //generates up to 6 iron vein or stone harvestables
         case "cave":
             for (var i = 0; i < randomNum(5); i++) {
                 things++;
