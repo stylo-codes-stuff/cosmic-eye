@@ -1,7 +1,4 @@
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
 function generateRandomSeed(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -12,6 +9,9 @@ function generateRandomSeed(length) {
       counter += 1;
     }
     return result;
+}
+function randomNum(max){
+  return Math.floor(Math.random() * max)+1;
 }
 function random_choice(list){
   let i = Math.floor(Math.random() * list.length);
