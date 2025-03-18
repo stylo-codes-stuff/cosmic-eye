@@ -1,4 +1,4 @@
-
+//generates a random base64 seed of a specified length
 function generateRandomSeed(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -10,6 +10,7 @@ function generateRandomSeed(length) {
     }
     return result;
 }
+//generates a random number from 0 to max
 function randomNum(max){
   return Math.floor(Math.random() * max)+1;
 }
@@ -18,7 +19,10 @@ function random_choice(list){
   let r = list[i];
   return r;
 }
-//takes to equal sized lists and makes a random choice affected by weights
+//takes two equal sized lists and makes a random choice affected by weights corresponding to each item
+//[item1,item2,item3]
+//   ^     ^      ^
+//[ 40   ,50    ,10]
 function weighted_choice(items, weights) {
   var i;
 
@@ -33,5 +37,3 @@ function weighted_choice(items, weights) {
   
   return items[i];
 }
-for (var i = 0;i<10;i++){
-console.log(weighted_choice(["stone","iron","gold"],[50,40,10]))}

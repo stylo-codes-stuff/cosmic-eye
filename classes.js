@@ -1,3 +1,3 @@
-class item{
-    constructor(body_part,defense)
-}
+//class item{
+//    constructor(body_part,defense)
+//}

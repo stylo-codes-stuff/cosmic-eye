@@ -1,14 +1,21 @@
+//for  brevity a location is an interactable item that can generate new harvestable items
+// a harvestable is an item that  can be interacted with to generate resources such as wood iron and stone
+
+
 //variable for keeping track of the total amount of actions locations and harvestables
 var things = 2;
-//resources variables
-var equipment = {head:null,chest:null,legs:null}
-var items = []
+//resources  and equipment variables
+var equipment = {head:null,chest:null,legs:null,feet:null,hands:null};
+var items = [];
 var stone = 0;
 var acorns = 0;
 var iron = 0;
 var wood = 0;
-var shells = 0
+var shells = 0;
 //resource multipliers
+var shovel_mult =1; //increases the amount of resources gained from finding_shells and other digging activities
+var pick_mult=1; //increases the amount of resources gained from mining
+var glove_mult =1; //increases the amount of resources gained from looting and foraging
 //update the debugging display for the amount of things currently generated
 function update_things_count() {
     var count = document.getElementById("things_count");
@@ -27,13 +34,14 @@ function update_resource_count() {
     shell_count.innerHTML = "shells: " + shells;
     acorns_count.innerHTML = "acorns: " + acorns;
 }
-//harvests a resource and updates its values
+//harvests a resource and updates its values and then decrements its amount of uses
 function harvestResource(element) {
     var uses = element.getAttribute("data-uses")
     var name = element.getAttribute("data-name")
     var parent_element = element.parentElement;
     uses -= 1;
     element.setAttribute("data-uses", uses - 1)
+    //switch to perform logic based on the harvested resource
     switch (name) {
         case "tree":
             wood += randomNum(10);
@@ -49,16 +57,19 @@ function harvestResource(element) {
             shells += randomNum(10)
             break;
     }
+    //checks to see if the amount of uses on the interacted harvestable is up
+    // if it is the html associated with it is deleted and the things variable is decremented
     if (uses - 1 <= 0) {
         element.remove()
         parent_element.remove()
         things--
     }
+    //logic to update the resource and thing displays
     update_resource_count();
     update_things_count();
 
 }
-//generate a location with unique id
+//generate and fill a location template with the given name and with a random amount of uses
 function generateLocation(name) {
 
     return `<div id="div${things}container">
@@ -68,6 +79,7 @@ function generateLocation(name) {
             ${name}
     </div>`;
 }
+//generates and fills in template html for a new harvestable item with a random amount of uses
 function generateHarvestable(name) {
     console.log(name)
 
@@ -78,8 +90,10 @@ function generateHarvestable(name) {
             ${name}
     </div>`;
 }
+//function to perform logic based on interactions under the actions tab
 function perform_action(action_name) {
     var resources = document.getElementById("resource_container")
+    //switch statement to perform logic based on the action performed
     switch (action_name) {
         //removes 5 acorns to generate a forest location
         case "plant trees":
@@ -88,26 +102,34 @@ function perform_action(action_name) {
                 acorns -= 5
             }
             break;
-        //summons either a forest or cave location or a beach harvestable
+        //summons either a forest, a cave location or a beach harvestable
         case "search":
             var test = [generateHarvestable("beach"), generateLocation("forest")]
             resources.innerHTML += random_choice(test)
             break;
+        //debug action to summon a single tree harvestable
         case "summon tree":
             resources.innerHTML += generateHarvestable("tree");
             break;
+        //debug action to summon a single stone harvestable
         case "summon stone":
             resources.innerHTML += generateHarvestable("stone");
             break;
+        //debug action to summon a single beach harvestable
         case "summon beach":
             resources.innerHTML += generateHarvestable("beach");
             break;
+        //debug action to summon a single cave location
         case "summon cave":
-            resources.innerHTML += generateHarvestable("cave");
+            resources.innerHTML += generateLocation("cave");
             break;
+        //debug action to summon a single plains location
         case "summon plain":
             resources.innerHTML += generateLocation("plains")
     }
+    //update resource and things displays
+    update_resource_count();
+    update_things_count();
 }
 //generates harvestables and locations based on the type of interaction
 function generateThings(item) {
@@ -125,7 +147,7 @@ function generateThings(item) {
         element.remove()
         parent.remove()
     }
-
+    //switch to perform logic based on the type of item being interacted with
     switch (name) {
         //generates up to 6 iron vein or stone harvestables
         case "cave":
@@ -136,9 +158,9 @@ function generateThings(item) {
 
             }
             break;
-        //generates a varying amount of forest, beach and cave locations up to 6 times.
+        //generates up to 6 of either a beach or forest location, or a beach harvestable
         case "plains":
-            var test = [generateHarvestable("beach"), generateLocation("forest")]
+            var test = [generateHarvestable("beach"), generateLocation("forest"),generateLocation("cave")]
             for (var i = 0; i < randomNum(5); i++) {
                 things++;
                 container.innerHTML += random_choice(test);
