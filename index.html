@@ -13,20 +13,81 @@
     </script>
   </head>
   <body>
-    <div id=things_count></div>
-    <div id="stone_count"></div>
+
+    <div id="resource_div">
+      <div class="title">
+        Resources
+      </div>
+    <div id="resource_container">
     <div id="div0container">
-      <button id="div0"onclick="generateThings(this.id)" data-name="cave">
+      <button id="div0"onclick="generateThings(this.id)" data-name="cave" data-uses="10">
         +
       </button>
       cave
     </div>
     <div id="div1container">
-      <button id="div1"onclick=generateThings(this.id) data-name="plains">
+      <button id="div1"onclick=generateThings(this.id) data-name="plains" data-uses="10">
         +
       </button>
       plains
     </div>
-
+    </div>
+    </div>
+    <div id="action_div">
+      <div class="title">
+        Actions
+      </div>
+      <title>actions</title>
+      <div id="div3container">
+      <button id="div3" onclick='perform_action("plant trees")'>+</button>
+      plant some trees
+    </div>
+    <div id="div4container">
+      <button id="div4" onclick='perform_action("search")'>+</button>
+      search far off lands
+    </div>
+    <div id="debug_menu">
+      <div class="title">Debug Actions</div>
+      <div id="div5container">
+        <button id="div5" onclick='perform_action("summon tree")'>+</button>
+        summon a tree
+      </div>
+      <div id="div6container">
+        <button id="div6" onclick='perform_action("summon stone")'>+</button>
+        summon a rock
+      </div>
+      <div id="div7container">
+        <button id="div7" onclick='perform_action("summon beach")'>+</button>
+        summon a beach
+      </div>
+      <div id="div8container">
+        <button id="div8" onclick='perform_action("summon plain")'>+</button>
+        summon a plain
+      </div>
+      <div id="div9container">
+        <button id="div9" onclick='perform_action("summon cave")'>+</button>
+        summon a cave
+      </div>
+      </div>
+    </div>
+    <div id ="inventory_div">
+      <div class="title">
+        Inventory
+        </div>
+      <div id=things_count></div>
+      <div id="stone_count"></div>
+      <div id="wood_count"></div>
+      <div id="acorns_count"></div>
+      <div id="iron_count"></div>
+      <div id="shell_count"></div>
+    </div>
+    <div id="equipment_div">
+      <div class="title">
+      Equipment
+      </div>
+    </div>
+    <div id="crafting_div">
+      <div class="title">Crafting</div>
+    </div>
   </body>
   </html>
