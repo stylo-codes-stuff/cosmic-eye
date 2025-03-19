@@ -1,0 +1,26 @@
+.hover_img a { 
+    position:relative; 
+}
+.hover_img a span { 
+    position:absolute; 
+    display:none; z-index:99;
+    border: 5px solid black ;
+    border-width: 1px; 
+}
+.hover_img a span div{
+    float: left;
+    background-color:white ;
+
+
+}
+.hover_img a span div img{
+    float: left;
+    width: 40px;
+    height: 40px;
+}
+.itemname{
+    font-size: 20px;
+}
+.hover_img a:hover span { 
+    display:block; 
+}

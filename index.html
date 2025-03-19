@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cosmic Eye Demo</title>
-    <link rel="stylesheet" href="./styles.css">
-    <script src="functions.js"></script>
-    <script src="main.js"></script>
-    <script src="classes.js"></script>
 
-    </script>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cosmic Eye Demo</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="functions.js"></script>
+  <script src="main.js"></script>
+  <script src="classes.js"></script>
+  <script src="el_functions.js"></script>
 
-    <div id="resource_div">
-      <div class="title">
-        Resources
-      </div>
+  </script>
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="resource_check" onclick="hide_resources()">
+    toggle resource display
+    </input>
+    <input type="checkbox" id="action_check" onclick="hide_actions()" checked>
+    toggle action display
+    </input>
+    <input type="checkbox" id="inventory_check" onclick="hide_inventory()" checked>
+    toggle inventory display
+    </input>
+    <input type="checkbox" id="equipment_check" onclick="hide_equipment()" checked>
+    toggle equipment display
+    </input>
+  </nav>
+  <div id="resource_div">
+    <div class="title">
+      Resources
+    </div>
     <div id="resource_container">
-    <div id="div0container">
-      <button id="div0"onclick="generateThings(this.id)" data-name="cave" data-uses="10">
-        +
-      </button>
-      cave
-    </div>
-    <div id="div1container">
-      <button id="div1"onclick=generateThings(this.id) data-name="plains" data-uses="10">
-        +
-      </button>
-      plains
-    </div>
-    </div>
-    </div>
-    <div id="action_div">
-      <div class="title">
-        Actions
+      <div id="div0container">
+        <button id="div0" onclick="generateThings(this.id)" data-name="cave" data-uses="10">
+          +
+        </button>
+        cave
       </div>
-      <title>actions</title>
-      <div id="div3container">
+      <div id="div1container">
+        <button id="div1" onclick=generateThings(this.id) data-name="plains" data-uses="10">
+          +
+        </button>
+        plains
+      </div>
+    </div>
+  </div>
+  <div id="action_div">
+    <div class="title">
+      Actions
+    </div>
+    <title>actions</title>
+    <div id="div3container">
       <button id="div3" onclick='perform_action("plant trees")'>+</button>
       plant some trees
     </div>
@@ -68,26 +84,39 @@
         <button id="div9" onclick='perform_action("summon cave")'>+</button>
         summon a cave
       </div>
-      </div>
     </div>
-    <div id ="inventory_div">
-      <div class="title">
-        Inventory
-        </div>
+  </div>
+  <div id="inventory_div">
+    <div class="title">
+      Inventory
+    </div>
+    <div>
       <div id=things_count></div>
-      <div id="stone_count"></div>
-      <div id="wood_count"></div>
-      <div id="acorns_count"></div>
-      <div id="iron_count"></div>
-      <div id="shell_count"></div>
     </div>
-    <div id="equipment_div">
-      <div class="title">
+    <div id="stone_count">stone: 0</div>
+    <div id="wood_count">wood: 0</div>
+    <div class="images"><img src="./resources/acorn.png" />
+      <div id="acorns_count">acorns: 0</div>
+    </div>
+    <div id="iron_count">iron ore:0</div>
+    <div class="images"><img src="./resources/shell.png" />
+      <div id="shell_count">shells: 0</div>
+    </div>
+  </div>
+  <div id="equipment_div">
+    <div class="title">
       Equipment
-      </div>
     </div>
-    <div id="crafting_div">
-      <div class="title">Crafting</div>
+  </div>
+  <div id="crafting_div">
+    <div class="title">Crafting</div>
+  </div>
+  <div id="combat_div">
+    <div class="title">Combat</div>
+    <div id="enemy_div">
+      <img src="./enemies/moblin.png" />
+      <progress id="mid_enemy_health"value="32" max="100"></progress>
     </div>
-  </body>
-  </html>
+</body>
+
+</html>

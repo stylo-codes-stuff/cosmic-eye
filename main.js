@@ -5,6 +5,7 @@
 //variable for keeping track of the total amount of actions locations and harvestables
 var things = 2;
 //resources  and equipment variables
+var inventory = {weapons:[],armor:[]}
 var equipment = {head:null,chest:null,legs:null,feet:null,hands:null};
 var items = [];
 var stone = 0;
@@ -13,6 +14,7 @@ var iron = 0;
 var wood = 0;
 var shells = 0;
 //resource multipliers
+var current_enemy = null;
 var shovel_mult =1; //increases the amount of resources gained from finding_shells and other digging activities
 var pick_mult=1; //increases the amount of resources gained from mining
 var glove_mult =1; //increases the amount of resources gained from looting and foraging
@@ -21,6 +23,22 @@ function update_things_count() {
     var count = document.getElementById("things_count");
     count.innerHTML = things;
 }
+function combat(enemy_count){
+    
+}
+//function for generating weapons objects
+function generateWeapon(type,tier,enchantment){
+    //switch to generate an object based on the 
+        switch(type){
+            //item with moderate damage(5-10) decent evasion(50%) and poor block chance(10%)
+            // has a passive ability that deals bonus damage on a suprise attack
+            case "dirk":
+                if(randomNum())
+                var new_weapon = new weapon("dirk",minmaxRandomInt(5,10),50,)
+                inventory[weapons].push()
+        }
+}
+function updateInventory(){}
 //updates the display for the amount of each resource you've collected
 function update_resource_count() {
     var stone_count = document.getElementById("stone_count");
@@ -34,6 +52,7 @@ function update_resource_count() {
     shell_count.innerHTML = "shells: " + shells;
     acorns_count.innerHTML = "acorns: " + acorns;
 }
+function craft(){}
 //harvests a resource and updates its values and then decrements its amount of uses
 function harvestResource(element) {
     var uses = element.getAttribute("data-uses")
@@ -44,17 +63,17 @@ function harvestResource(element) {
     //switch to perform logic based on the harvested resource
     switch (name) {
         case "tree":
-            wood += randomNum(10);
-            acorns += randomNum(20);
+            wood += randomInt(5,10);
+            acorns += randoInt(10,20);
             break;
         case "stone":
-            stone += randomNum(10);
+            stone += randomInt(5,10);
             break;
         case "iron vein":
-            iron += randomNum(10)
+            iron += randomInt(5,10)
             break;
         case "beach":
-            shells += randomNum(10)
+            shells += randomInt(5,10)
             break;
     }
     //checks to see if the amount of uses on the interacted harvestable is up
@@ -73,7 +92,7 @@ function harvestResource(element) {
 function generateLocation(name) {
 
     return `<div id="div${things}container">
-      <button id="div${things}"onclick="generateThings(this.id)" data-name="${name}" data-uses="${randomNum(10) + 4}">
+      <button id="div${things}"onclick="generateThings(this.id)" data-name="${name}" data-uses="${randomInt(5,10)}">
         +
       </button>
             ${name}
@@ -84,7 +103,7 @@ function generateHarvestable(name) {
     console.log(name)
 
     return `<div id="div${things}container">
-      <button id="div${things}"onclick="harvestResource(this)" data-name="${name}" data-uses="${randomNum(5)}">
+      <button id="div${things}"onclick="harvestResource(this)" data-name="${name}" data-uses="${randomInt(2,5)}">
         harvest
       </button>
             ${name}
@@ -151,7 +170,7 @@ function generateThings(item) {
     switch (name) {
         //generates up to 6 iron vein or stone harvestables
         case "cave":
-            for (var i = 0; i < randomNum(5); i++) {
+            for (var i = 0; i < randomInt(2,5); i++) {
                 things++;
                 container.innerHTML += generateHarvestable(random_choice(["stone", "iron vein"]))
                 update_things_count();
@@ -161,7 +180,7 @@ function generateThings(item) {
         //generates up to 6 of either a beach or forest location, or a beach harvestable
         case "plains":
             var test = [generateHarvestable("beach"), generateLocation("forest"),generateLocation("cave")]
-            for (var i = 0; i < randomNum(5); i++) {
+            for (var i = 0; i < randomInt(2,5); i++) {
                 things++;
                 container.innerHTML += random_choice(test);
             }
@@ -169,7 +188,7 @@ function generateThings(item) {
             break;
         //generates a random amount of tree harvestables up to 6
         case "forest":
-            for (var i = 0; i < randomNum(5); i++) {
+            for (var i = 0; i < randomInt(2,5); i++) {
                 things++;
                 container.innerHTML += generateHarvestable("tree");
                 update_things_count()
@@ -181,3 +200,5 @@ function generateThings(item) {
     }
 
 }
+console.log(Math.round(Math.random(),3))
+console.log(Math.random().toFixed(2))

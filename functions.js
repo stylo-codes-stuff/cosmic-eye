@@ -1,4 +1,16 @@
+let t1weapons = ["dirk","mace","broadsword"]
+let t1enchants = ["cold","warm","staticky"]
+let t1adjectives = ["heavy","dull"]
+let t3adjectives = ["extravagant","unextraordinary","brilliant"]
+
+
 //generates a random base64 seed of a specified length
+function generateItemName(type,tier,enchanted){
+   let name= ""
+   if (tier == "1" ){
+    name += random_choice(t1enchants);
+   }
+}
 function generateRandomSeed(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -10,10 +22,16 @@ function generateRandomSeed(length) {
     }
     return result;
 }
-//generates a random number from 0 to max
-function randomNum(max){
-  return Math.floor(Math.random() * max)+1;
+function randomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+//takes the inventory object and sorts every item alphabetically
+function inventory_alphabetize(object){
+}
+
 function random_choice(list){
   let i = Math.floor(Math.random() * list.length);
   let r = list[i];
@@ -36,4 +54,15 @@ function weighted_choice(items, weights) {
           break;
   
   return items[i];
+}
+//function that returns true or false based on a percent chance
+function percentChance(chance){
+  if (chance <=1){
+  if(Math.random().toFixed(2)<=chance){
+    return true;
+  }else{
+    return false;
+  }
+}
+return "Invalid chance must be a decimal between 0 and 1";
 }
