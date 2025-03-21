@@ -1,4 +1,4 @@
-//js class for generating perlin noise gradient maps
+//js class for generating perlin noise gradient maps adapted from https://rtouti.github.io/graphics/perlin-noise-algorithm
 var frequency = .212
 class Vector2 {
 	constructor(x, y) {
@@ -101,8 +101,7 @@ for(var x = 0;x<100;x++){
 y    //similar to pen down in scratch
       ctx.beginPath();
       //creates a circle with the specified radius at said coordinates
-      ctx.arc(x*5,y*5, 10, 0, Math.PI * 2);
-
+      ctx.fillRect(x*5,y*5,5,5)
       //sets and fills it with the specified color
       ctx.fillStyle = `rgb(0 0 0 / ${rounded_val})`;
       ctx.fill();
