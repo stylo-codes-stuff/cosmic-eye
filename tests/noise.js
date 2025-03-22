@@ -1,4 +1,5 @@
-const seed = 55;
+const seed = 713
+;
 const gen = lcg(seed);
 
 //js class for generating perlin noise gradient maps adapted from https://rtouti.github.io/graphics/perlin-noise-algorithm
@@ -92,7 +93,7 @@ function Noise2D(x, y) {
 		Lerp(v, dotBottomRight, dotTopRight)
 	);
 }
-function FractalBrownianMotion(x, y, numOctaves,amplitude, frequency, freq_mult, amp_mult) {
+function FractalBrownianMotion(x, y, numOctaves, amplitude, frequency, freq_mult, amp_mult) {
 	let result = 0.0;
 
 	for (let octave = 0; octave < numOctaves; octave++) {
@@ -108,32 +109,65 @@ function FractalBrownianMotion(x, y, numOctaves,amplitude, frequency, freq_mult,
 
 //generates a noisemap and then populates it with appropiate terrain
 
-function generateNoisemap(canvas_id,height, width, frequency, octaves,freq_mult,amp_mult) {
+function generateNoisemap(canvas_id, height, width, frequency, octaves, freq_mult, amp_mult) {
 	//id of the canvas that the noise map will be rendered onto
 	var canvas = document.getElementById(canvas_id)
 	var ctx = canvas.getContext("2d");
 	var noise_coords = [];
+	var special_structure_coords = [];
 	for (var x = 0; x < width; x++) {
 		for (var y = 0; y < height; y++) {
-			var noise_val = FractalBrownianMotion(x, y, octaves, 1, frequency,freq_mult,amp_mult)
+			var noise_val = FractalBrownianMotion(x, y, octaves, 1, frequency, freq_mult, amp_mult)
 			var rounded_val = Math.round(noise_val * 100) / 100;
-			console.log(rounded_val)
-			noise_coords.push({x:x,y:y,value:rounded_val})
+			noise_coords.push({ x: x, y: y, value: rounded_val })
 
 		}
-		for(var coord = 0;coord<noise_coords.length-1;coord++){
-						//similar to pen down in scratch
-						ctx.beginPath();
-						//creates a circle with the specified radius at said coordinates
-						ctx.fillRect(noise_coords[coord].x * 10, noise_coords[coord].y * 10, 10, 10)
-						//sets and fills it with the specified color
-						ctx.fillStyle = `rgb(0 0 0 / ${noise_coords[coord].value})`;
-			
-						ctx.fill();
-						//similar to pen down
-						ctx.closePath();
+		for (var coord = 0; coord < noise_coords.length - 1; coord++) {
+
+			//similar to pen down in scratch
+			ctx.beginPath();
+			//creates a circle with the specified radius at said coordinates
+			ctx.fillRect(noise_coords[coord].x * 10, noise_coords[coord].y * 10, 10, 10)
+			//sets and fills it with the specified color
+			//generate lakes
+			if (noise_coords[coord].value < .8) {
+
+				ctx.fillStyle = `rgb(17, 204, 0)`;
+			}
+			if (noise_coords[coord].value > .8) {
+				ctx.fillStyle = `rgb(0, 0, 255)`;
+
+
+			} if (noise_coords[coord].value < -1) {
+				ctx.fillStyle = `rgb(255, 166, 0)`;
+
+			}
+			//						ctx.fillStyle = `rgb(0 0 0 / ${noise_coords[coord].value})`;
+
+			ctx.fill();
+			//similar to pen down
+			ctx.closePath();
 		}
 	}
 
 }
-generateNoisemap("noise_canvas",30,30,.2,2,.5,2)
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    console.log("x: " + x + " y: " + y)
+}
+
+window.onload=function(){
+	function getCursorPosition(canvas, event) {
+		const rect = canvas.getBoundingClientRect()
+		const x = event.clientX - rect.left
+		const y = event.clientY - rect.top
+		console.log("x: " + Math.round(x) + " y: " + Math.round(y))
+	}
+	
+	const canvas = document.querySelector('canvas')
+	canvas.addEventListener('mousedown', function(e) {
+		getCursorPosition(canvas, e)
+	})}
+generateNoisemap("noise_canvas", 100, 100, .2, 2, .5, 1)
