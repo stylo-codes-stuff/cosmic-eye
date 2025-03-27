@@ -200,5 +200,3 @@ function generateThings(item) {
     }
 
 }
-console.log(Math.round(Math.random(),3))
-console.log(Math.random().toFixed(2))
